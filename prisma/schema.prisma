@@ -41,6 +41,8 @@ model Product {
   sku           String    @unique
   dimension     Dimension
   baseUnit      String
+  category      String?
+  description   String?
 
   stockQuantity Float
   basePrice     Float
