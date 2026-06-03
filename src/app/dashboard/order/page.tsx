@@ -164,11 +164,11 @@ export default function PlaceOrderPage() {
       {/* Catalog Column (Left) */}
       <div className="lg:col-span-7 flex flex-col h-full overflow-hidden space-y-4">
         {/* Search & Filter Header */}
-        <div className="bg-slate-900/30 border border-white/5 p-4 rounded-2xl space-y-3 shrink-0">
+        <div className="bg-card border border-border p-4 rounded-2xl space-y-3 shrink-0">
           <div className="flex gap-2">
             <input
               id="product-search-input"
-              className="flex-1 bg-slate-950/80 border border-white/5 focus:border-blue-500/40 rounded-xl px-4 py-2.5 text-sm focus:outline-none placeholder:text-slate-600"
+              className="flex-1 bg-background border border-input focus:border-primary/50 focus:ring-1 focus:ring-primary rounded-xl px-4 py-2.5 text-sm focus:outline-none placeholder:text-slate-600"
               placeholder="Search products by name, SKU or category..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -176,16 +176,16 @@ export default function PlaceOrderPage() {
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
-            <span className="text-xs font-semibold text-slate-500 mr-2 uppercase tracking-wider">Dimension:</span>
+            <span className="text-xs font-semibold text-muted-foreground mr-2 uppercase tracking-wider">Dimension:</span>
             {["All", "WEIGHT", "VOLUME", "COUNT"].map((dim) => (
               <button
                 key={dim}
                 id={`filter-dim-${dim.toLowerCase()}`}
                 onClick={() => setSelectedDimension(dim)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-300 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-300 cursor-pointer ${
                   selectedDimension === dim
-                    ? "bg-blue-600/10 border-blue-500/30 text-blue-400"
-                    : "bg-transparent border-white/5 text-slate-400 hover:text-slate-200 hover:border-white/10"
+                    ? "bg-primary/10 border-primary/20 text-primary"
+                    : "bg-transparent border-border text-muted-foreground hover:text-foreground hover:border-white/10"
                 }`}
               >
                 {dim}
@@ -198,14 +198,14 @@ export default function PlaceOrderPage() {
         <div className="flex-1 overflow-y-auto space-y-4 pr-2">
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <svg className="animate-spin h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="text-center py-20 border border-dashed border-white/5 rounded-2xl bg-slate-900/10">
-              <p className="text-sm text-slate-500">No products found matching the criteria.</p>
+            <div className="text-center py-20 border border-dashed border-border rounded-2xl bg-card">
+              <p className="text-sm text-muted-foreground">No products found matching the criteria.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -214,37 +214,37 @@ export default function PlaceOrderPage() {
                 return (
                   <div
                     key={p.id}
-                    className="bg-slate-900/20 border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all duration-300 flex flex-col justify-between"
+                    className="bg-card border border-border rounded-2xl p-5 hover:border-accent-foreground/10 transition-all duration-300 flex flex-col justify-between"
                   >
                     <div>
                       {/* Card Header */}
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="overflow-hidden">
-                          <h3 className="font-bold text-slate-200 truncate text-sm" title={p.name}>{p.name}</h3>
-                          <span className="text-[10px] font-mono text-slate-500 tracking-wider uppercase block mt-0.5">SKU: {p.sku}</span>
+                          <h3 className="font-bold text-foreground truncate text-sm" title={p.name}>{p.name}</h3>
+                          <span className="text-[10px] font-mono text-muted-foreground tracking-wider uppercase block mt-0.5">SKU: {p.sku}</span>
                         </div>
                         {p.category && (
-                          <span className="shrink-0 px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded text-[9px] font-semibold uppercase tracking-wider">
+                          <span className="shrink-0 px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary rounded text-[9px] font-semibold uppercase tracking-wider">
                             {p.category}
                           </span>
                         )}
                       </div>
 
                       {/* Description */}
-                      <p className="text-xs text-slate-400 line-clamp-2 mb-4 min-h-[32px]">
+                      <p className="text-xs text-muted-foreground line-clamp-2 mb-4 min-h-[32px]">
                         {p.description || "No description provided."}
                       </p>
 
                       {/* Base Info */}
-                      <div className="grid grid-cols-2 gap-2 bg-slate-950/40 rounded-xl p-2.5 border border-white/5 mb-4 text-[10px] text-slate-400">
+                      <div className="grid grid-cols-2 gap-2 bg-background/50 rounded-xl p-2.5 border border-border mb-4 text-[10px] text-muted-foreground">
                         <div>
                           <span className="block text-slate-500 uppercase tracking-wider text-[8px] font-semibold mb-0.5">Base Price</span>
-                          <span className="text-slate-200 font-bold text-xs">{formatINR(p.basePrice)}</span>
+                          <span className="text-foreground font-bold text-xs">{formatINR(p.basePrice)}</span>
                           <span className="text-slate-500 font-medium"> / {p.baseUnit}</span>
                         </div>
                         <div>
                           <span className="block text-slate-500 uppercase tracking-wider text-[8px] font-semibold mb-0.5">In Stock</span>
-                          <span className={`font-bold text-xs ${p.stockQuantity === 0 ? "text-rose-400" : "text-slate-200"}`}>
+                          <span className={`font-bold text-xs ${p.stockQuantity === 0 ? "text-destructive" : "text-foreground"}`}>
                             {p.stockQuantity}
                           </span>
                           <span className="text-slate-500 font-medium"> {p.baseUnit}</span>
@@ -255,10 +255,10 @@ export default function PlaceOrderPage() {
                     <button
                       id={`add-to-quote-${p.sku.toLowerCase()}`}
                       onClick={() => addToCart(p)}
-                      className={`w-full py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                      className={`w-full py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
                         isInCart
-                          ? "bg-slate-800 border border-white/10 text-slate-500 cursor-not-allowed"
-                          : "bg-blue-600/15 hover:bg-blue-600 border border-blue-500/30 hover:border-blue-500 text-blue-400 hover:text-white"
+                          ? "bg-secondary border border-border text-slate-500 cursor-not-allowed"
+                          : "bg-primary/10 hover:bg-primary border border-primary/20 hover:border-primary text-primary hover:text-primary-foreground"
                       }`}
                       disabled={isInCart}
                     >
@@ -283,18 +283,18 @@ export default function PlaceOrderPage() {
       </div>
 
       {/* Cart Column (Right) */}
-      <div className="lg:col-span-5 bg-slate-900/30 border border-white/5 rounded-3xl p-6 flex flex-col h-full overflow-hidden relative">
-        <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4 shrink-0">
-          <h2 className="text-base font-bold text-slate-200 flex items-center gap-2">
+      <div className="lg:col-span-5 bg-card border border-border rounded-3xl p-6 flex flex-col h-full overflow-hidden relative">
+        <div className="flex items-center justify-between border-b border-border pb-4 mb-4 shrink-0">
+          <h2 className="text-base font-bold text-foreground flex items-center gap-2">
             <span>Quotation Cart</span>
-            <span className="h-5 w-5 bg-blue-600/20 text-blue-400 border border-blue-500/20 text-xs rounded-full flex items-center justify-center font-bold">
+            <span className="h-5 w-5 bg-primary/20 text-primary border border-primary/20 text-xs rounded-full flex items-center justify-center font-bold">
               {cart.length}
             </span>
           </h2>
           {cart.length > 0 && (
             <button
               onClick={() => setCart([])}
-              className="text-[10px] font-semibold text-rose-400 hover:text-rose-300 transition-colors"
+              className="text-[10px] font-semibold text-rose-400 hover:text-rose-300 transition-colors cursor-pointer"
             >
               Clear Cart
             </button>
@@ -305,12 +305,12 @@ export default function PlaceOrderPage() {
         <div className="flex-1 overflow-y-auto space-y-4 pr-1">
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center space-y-3 h-full">
-              <div className="h-12 w-12 rounded-full bg-slate-950 flex items-center justify-center border border-white/5">
-                <svg className="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-background flex items-center justify-center border border-border">
+                <svg className="h-6 w-6 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </div>
-              <p className="text-xs text-slate-500">Your quotation draft is empty.<br />Add products from the catalog to get started.</p>
+              <p className="text-xs text-muted-foreground">Your quotation draft is empty.<br />Add products from the catalog to get started.</p>
             </div>
           ) : (
             cart.map((item) => {
@@ -322,16 +322,16 @@ export default function PlaceOrderPage() {
               return (
                 <div
                   key={item.id}
-                  className="bg-slate-950/40 border border-white/5 rounded-2xl p-4 space-y-3 hover:border-white/10 transition-colors"
+                  className="bg-background border border-border rounded-2xl p-4 space-y-3 hover:border-accent-foreground/10 transition-colors"
                 >
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <h4 className="font-bold text-slate-200 text-sm truncate max-w-[200px]" title={item.name}>{item.name}</h4>
-                      <span className="text-[10px] font-mono text-slate-500 block">SKU: {item.sku}</span>
+                      <h4 className="font-bold text-foreground text-sm truncate max-w-[200px]" title={item.name}>{item.name}</h4>
+                      <span className="text-[10px] font-mono text-muted-foreground block">SKU: {item.sku}</span>
                     </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="text-slate-600 hover:text-rose-400 transition-colors"
+                      className="text-slate-600 hover:text-rose-400 transition-colors cursor-pointer"
                       title="Remove product"
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -343,20 +343,20 @@ export default function PlaceOrderPage() {
                   {/* Quantity & Unit Selectors */}
                   <div className="grid grid-cols-12 gap-2">
                     <div className="col-span-7">
-                      <label className="block text-[8px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Order Quantity</label>
+                      <label className="block text-[8px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Order Quantity</label>
                       <input
                         type="number"
                         step="any"
-                        className="w-full bg-slate-950 border border-white/5 focus:border-blue-500/40 rounded-xl px-3 py-1.5 text-xs focus:outline-none text-slate-200"
+                        className="w-full bg-background border border-input focus:border-primary/50 focus:ring-1 focus:ring-primary rounded-xl px-3 py-1.5 text-xs focus:outline-none text-foreground"
                         value={item.orderedQuantity || ""}
                         onChange={(e) => updateQuantity(item.id, parseFloat(e.target.value))}
                         min="0"
                       />
                     </div>
                     <div className="col-span-5">
-                      <label className="block text-[8px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Order Unit</label>
+                      <label className="block text-[8px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Order Unit</label>
                       <select
-                        className="w-full bg-slate-950 border border-white/5 focus:border-blue-500/40 rounded-xl px-3 py-1.5 text-xs focus:outline-none text-slate-300 cursor-pointer"
+                        className="w-full bg-background border border-input focus:border-primary/50 focus:ring-1 focus:ring-primary rounded-xl px-3 py-1.5 text-xs focus:outline-none text-slate-300 cursor-pointer"
                         value={item.orderedUnit}
                         onChange={(e) => updateUnit(item.id, e.target.value)}
                       >
@@ -370,7 +370,7 @@ export default function PlaceOrderPage() {
                   </div>
 
                   {/* Live Conversion Audit Panel */}
-                  <div className="bg-slate-950/80 rounded-xl p-3 border border-white/5 space-y-1.5 text-[10px] text-slate-400">
+                  <div className="bg-secondary/40 rounded-xl p-3 border border-border space-y-1.5 text-[10px] text-muted-foreground">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Unit Price:</span>
                       <span className="font-semibold text-slate-300">
@@ -383,9 +383,9 @@ export default function PlaceOrderPage() {
                         {convertedQty.toLocaleString()} {item.baseUnit}
                       </span>
                     </div>
-                    <div className="flex justify-between border-t border-white/5 pt-1.5 mt-1">
-                      <span className="font-bold text-slate-400">Line Total:</span>
-                      <span className="font-bold text-blue-400 text-xs">
+                    <div className="flex justify-between border-t border-border pt-1.5 mt-1">
+                      <span className="font-bold text-muted-foreground">Line Total:</span>
+                      <span className="font-bold text-primary text-xs">
                         {formatINR(lineTotal)}
                       </span>
                     </div>
@@ -398,22 +398,22 @@ export default function PlaceOrderPage() {
 
         {/* Action Panel */}
         {cart.length > 0 && (
-          <div className="border-t border-white/5 pt-4 mt-4 shrink-0 space-y-4">
+          <div className="border-t border-border pt-4 mt-4 shrink-0 space-y-4">
             {/* Status alerts */}
             {errorMsg && (
-              <div className="bg-rose-500/10 border border-rose-500/20 text-rose-300 px-3 py-2 rounded-xl text-[10px] flex items-center gap-1.5 animate-shake">
+              <div className="bg-destructive/10 border border-destructive/20 text-rose-300 px-3 py-2 rounded-xl text-[10px] flex items-center gap-1.5 animate-shake">
                 <span>⚠️ {errorMsg}</span>
               </div>
             )}
             {successMsg && (
-              <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 px-3 py-2 rounded-xl text-[10px] flex items-center gap-1.5">
+              <div className="bg-primary/10 border border-primary/20 text-primary px-3 py-2 rounded-xl text-[10px] flex items-center gap-1.5">
                 <span>✓ {successMsg}</span>
               </div>
             )}
 
             <div className="flex items-center justify-between text-sm">
-              <span className="font-bold text-slate-400">Quotation Total:</span>
-              <span className="text-xl font-extrabold text-white bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">
+              <span className="font-bold text-muted-foreground">Quotation Total:</span>
+              <span className="text-xl font-extrabold text-foreground bg-gradient-to-r from-primary to-slate-400 bg-clip-text text-transparent">
                 {formatINR(calculateSubtotal())}
               </span>
             </div>
@@ -422,11 +422,11 @@ export default function PlaceOrderPage() {
               id="submit-quotation-btn"
               onClick={submitQuotation}
               disabled={submitting}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.15)] flex items-center justify-center gap-2 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.15)] flex items-center justify-center gap-2 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {submitting ? (
                 <>
-                  <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-4 w-4 text-primary-foreground" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>

@@ -34,7 +34,7 @@ export default function UserOrdersPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <svg className="animate-spin h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24">
+        <svg className="animate-spin h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
         </svg>
@@ -46,13 +46,13 @@ export default function UserOrdersPage() {
     <div className="space-y-6 animate-fadeIn relative z-10">
       {/* Title */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-100 font-sans">My Quotation History</h1>
-        <p className="text-xs text-slate-400 mt-1">Review the status and details of your chemical asset orders</p>
+        <h1 className="text-2xl font-bold text-foreground font-sans">My Quotation History</h1>
+        <p className="text-xs text-muted-foreground mt-1">Review the status and details of your chemical asset orders</p>
       </div>
 
       {orders.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-white/5 rounded-2xl bg-slate-900/10">
-          <p className="text-sm text-slate-500">No quotations found.</p>
+        <div className="text-center py-20 border border-dashed border-border rounded-2xl bg-card">
+          <p className="text-sm text-muted-foreground">No quotations found.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -63,31 +63,31 @@ export default function UserOrdersPage() {
               <div
                 key={order.id}
                 onClick={() => setSelectedOrder(order)}
-                className={`bg-slate-900/20 border p-5 rounded-2xl cursor-pointer hover:border-white/10 transition-all duration-300 ${
+                className={`bg-card border p-5 rounded-2xl cursor-pointer hover:border-accent-foreground/10 transition-all duration-300 ${
                   selectedOrder?.id === order.id
-                    ? "border-blue-500/30 bg-blue-500/[0.02]"
-                    : "border-white/5"
+                    ? "border-primary/30 bg-primary/[0.02]"
+                    : "border-border"
                 }`}
               >
                 <div className="flex justify-between items-start gap-4">
                   <div>
-                    <span className="text-[10px] font-mono text-slate-500 block mb-1">ID: {order.id}</span>
-                    <span className="text-xs text-slate-400 block">{new Date(order.createdAt).toLocaleString()}</span>
+                    <span className="text-[10px] font-mono text-muted-foreground block mb-1">ID: {order.id}</span>
+                    <span className="text-xs text-muted-foreground block">{new Date(order.createdAt).toLocaleString()}</span>
                     <span className="text-xs text-slate-300 font-semibold mt-2 block">{order.items.length} Product(s)</span>
                   </div>
                   <div className="text-right flex flex-col items-end justify-between h-full">
                     <span
                       className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-bold tracking-wider mb-2 ${
                         order.status === "PENDING"
-                          ? "bg-amber-500/10 border border-amber-500/20 text-amber-400"
+                          ? "bg-amber-500/10 border border-amber-500/20 text-amber-500"
                           : order.status === "APPROVED"
-                          ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
-                          : "bg-rose-500/10 border border-rose-500/20 text-rose-400"
+                          ? "bg-primary/10 border border-primary/20 text-primary"
+                          : "bg-destructive/10 border border-destructive/20 text-destructive-foreground"
                       }`}
                     >
                       {order.status}
                     </span>
-                    <span className="text-base font-extrabold text-white">{formatINR(order.totalAmount)}</span>
+                    <span className="text-base font-extrabold text-foreground">{formatINR(order.totalAmount)}</span>
                   </div>
                 </div>
               </div>
@@ -96,15 +96,15 @@ export default function UserOrdersPage() {
 
           {/* Details Section (Right) */}
           {selectedOrder && (
-            <div className="lg:col-span-6 bg-slate-900/30 border border-white/5 rounded-3xl p-6 h-fit animate-slideIn">
-              <div className="flex justify-between items-start border-b border-white/5 pb-4 mb-4">
+            <div className="lg:col-span-6 bg-card border border-border rounded-3xl p-6 h-fit animate-slideIn">
+              <div className="flex justify-between items-start border-b border-border pb-4 mb-4">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">Quotation Details</h3>
-                  <span className="text-[10px] font-mono text-slate-500 mt-1 block">ID: {selectedOrder.id}</span>
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Quotation Details</h3>
+                  <span className="text-[10px] font-mono text-muted-foreground mt-1 block">ID: {selectedOrder.id}</span>
                 </div>
                 <button
                   onClick={() => setSelectedOrder(null)}
-                  className="text-slate-500 hover:text-slate-300 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -115,26 +115,26 @@ export default function UserOrdersPage() {
               {/* Items List */}
               <div className="space-y-4">
                 {selectedOrder.items.map((item: any) => (
-                  <div key={item.id} className="bg-slate-950/40 border border-white/5 rounded-2xl p-4 space-y-2">
+                  <div key={item.id} className="bg-background border border-border rounded-2xl p-4 space-y-2">
                     <div className="flex justify-between">
                       <div>
-                        <h4 className="font-bold text-slate-200 text-sm">{item.product.name}</h4>
-                        <span className="text-[10px] font-mono text-slate-500">SKU: {item.product.sku}</span>
+                        <h4 className="font-bold text-foreground text-sm">{item.product.name}</h4>
+                        <span className="text-[10px] font-mono text-muted-foreground">SKU: {item.product.sku}</span>
                       </div>
-                      <span className="font-extrabold text-slate-300 text-sm">{formatINR(item.lineTotal)}</span>
+                      <span className="font-extrabold text-foreground text-sm">{formatINR(item.lineTotal)}</span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[10px] text-slate-400 bg-slate-950/80 p-2.5 rounded-xl border border-white/5">
+                    <div className="grid grid-cols-2 gap-2 text-[10px] text-muted-foreground bg-secondary/50 p-2.5 rounded-xl border border-border">
                       <div>
-                        <span className="block text-slate-500 text-[8px] uppercase tracking-wider font-semibold">Ordered Quantity</span>
-                        <span className="font-semibold text-slate-200">{item.orderedQuantity} {item.orderedUnit}</span>
+                        <span className="block text-muted-foreground text-[8px] uppercase tracking-wider font-semibold">Ordered Quantity</span>
+                        <span className="font-semibold text-foreground">{item.orderedQuantity} {item.orderedUnit}</span>
                       </div>
                       <div>
-                        <span className="block text-slate-500 text-[8px] uppercase tracking-wider font-semibold">Unit Price</span>
-                        <span className="font-semibold text-slate-200">{formatINR(item.unitPrice)} / {item.orderedUnit}</span>
+                        <span className="block text-muted-foreground text-[8px] uppercase tracking-wider font-semibold">Unit Price</span>
+                        <span className="font-semibold text-foreground">{formatINR(item.unitPrice)} / {item.orderedUnit}</span>
                       </div>
-                      <div className="col-span-2 border-t border-white/5 pt-2 mt-1">
-                        <span className="block text-slate-500 text-[8px] uppercase tracking-wider font-semibold">Database conversion</span>
+                      <div className="col-span-2 border-t border-border pt-2 mt-1">
+                        <span className="block text-muted-foreground text-[8px] uppercase tracking-wider font-semibold">Database conversion</span>
                         <span className="font-medium text-slate-300">
                           {item.convertedQuantity.toLocaleString()} {item.product.baseUnit} @ {formatINR(item.product.basePrice)} / {item.product.baseUnit}
                         </span>
@@ -145,9 +145,9 @@ export default function UserOrdersPage() {
               </div>
 
               {/* Order total */}
-              <div className="border-t border-white/5 pt-4 mt-6 flex justify-between items-center">
-                <span className="text-xs font-bold text-slate-400">Total Amount</span>
-                <span className="text-lg font-extrabold text-blue-400">{formatINR(selectedOrder.totalAmount)}</span>
+              <div className="border-t border-border pt-4 mt-6 flex justify-between items-center">
+                <span className="text-xs font-bold text-muted-foreground">Total Amount</span>
+                <span className="text-lg font-extrabold text-primary">{formatINR(selectedOrder.totalAmount)}</span>
               </div>
             </div>
           )}
