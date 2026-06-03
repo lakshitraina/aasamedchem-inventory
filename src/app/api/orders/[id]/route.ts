@@ -43,6 +43,19 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       const updatedOrder = await prisma.order.update({
         where: { id },
         data: { status: "REJECTED" },
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
       });
       return NextResponse.json(updatedOrder);
     }
@@ -85,7 +98,17 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
           where: { id },
           data: { status: "APPROVED" },
           include: {
-            items: true,
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+            items: {
+              include: {
+                product: true,
+              },
+            },
           },
         });
 
