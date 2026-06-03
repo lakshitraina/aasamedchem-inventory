@@ -13,7 +13,7 @@ export default function Home() {
           <span className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center font-bold text-primary-foreground text-xl tracking-wider">
             A
           </span>
-          <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-foreground via-slate-100 to-slate-400 bg-clip-text text-transparent">
+          <span className="text-xl font-bold tracking-tight text-foreground">
             AasaMedChem
           </span>
         </div>
@@ -40,9 +40,9 @@ export default function Home() {
         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-6 uppercase tracking-wider animate-pulse">
           Active Recruitment Assignment
         </span>
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-b from-foreground via-slate-100 to-slate-500 bg-clip-text text-transparent leading-none">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-slate-900 leading-none">
           Precision Inventory &<br />
-          Order Management
+          <span className="text-primary">Order Management</span>
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground mb-10 leading-relaxed">
           Manage specialized chemical assets, configure high-precision unit conversions (grams, kilograms, liters, milliliters, items), and streamline quotation workflows in one integrated terminal.
@@ -52,7 +52,7 @@ export default function Home() {
           <Link
             id="hero-login-btn"
             href="/login"
-            className="w-full sm:w-auto text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-14 flex items-center justify-center rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.2)] hover:shadow-[0_0_40px_rgba(139,92,246,0.3)] hover:-translate-y-0.5"
+            className="w-full sm:w-auto text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-14 flex items-center justify-center rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:-translate-y-0.5"
           >
             Access Portal
           </Link>
